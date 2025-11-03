@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Programming - College Project</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CSS Variables (Easily change theme colors!) --- */
+    :root {
+      --primary-purple: #5c35da; /* Main header/hero background */
+      --secondary-pink: #ff3e7f; /* Accent color */
+      --text-dark: #333;
+      --text-light: #fff;
+      --text-grey: #666;
+      --bg-white: #fff;
+      --bg-light-grey: #f8f8f8;
+      --header-bg: #fff;
+      --button-bg: #fff;
+      --button-text: var(--primary-purple);
+      --link-hover: var(--secondary-pink);
+    }
+
+    /* --- Global Styles --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    
+    p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-purple);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    /* --- Header & Navigation --- */
+    header.main-header {
+      background-color: var(--header-bg);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+    }
+    .logo span {
+      color: var(--secondary-pink);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li a {
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links li a.active,
+    .nav-links li a:hover {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+    }
+
+    /* --- Hero Section (Top Purple Block) --- */
+    .hero-section {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      padding: 80px 0 0; /* Padding above the wave */
+      position: relative;
+      overflow: hidden; /* To contain the illustration */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 80px; /* Space above wave for content */
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 50%; /* Adjust as needed */
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+
+    .hero-text .btn {
+      display: inline-block;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-text .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+      color: var(--primary-purple);
+    }
+    
+    .hero-illustration {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        position: relative;
+        min-height: 350px; /* Set a min-height */
+    }
+
+    /* REMOVED: The ::after pseudo-element that created the dashed border */
+
+    .hero-illustration img {
+        position: relative;
+        z-index: 2;
+        width: 90%; /* Make image slightly smaller than container */
+        height: 300px; /* Give it a fixed height */
+        object-fit: cover; /* Make the image cover this area */
+        border-radius: 10px; /* Rounded corners for the image itself */
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Add a little shadow */
+    }
+
+
+    /* --- Wavy Divider --- */
+    .wave-divider {
+      position: relative;
+      height: 100px; /* Height of the wave */
+      background-color: var(--primary-purple);
+      margin-top: -1px; /* Overlap to hide line */
+    }
+
+    .wave-divider svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      fill: var(--bg-white);
+    }
+
+    /* --- Topics Section (Below the Wave) --- */
+    .topics-section {
+      padding: 60px 0 80px;
+      background-color: var(--bg-white);
+    }
+
+    .topics-section h2 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    /* --- Topic Steps Layout --- */
+    .topic-steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      position: relative;
+    }
+    
+    /* --- Line connector (for visual appeal) --- */
+    .topic-steps-container::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80%;
+      height: 2px;
+      background-color: #eee;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      display: none; /* Hide for smaller screens or if too cluttered */
+    }
+
+    .topic-step {
+      background-color: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInBottom 0.6s ease-out forwards; /* Animation */
+      opacity: 0;
+    }
+
+    .topic-step:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      border-color: var(--primary-purple);
+    }
+
+    .step-number {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border: 3px solid #fff; /* White border to lift it visually */
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .step-link {
+        color: var(--primary-purple);
+        font-weight: 500;
+        margin-top: 15px;
+        display: inline-block;
+    }
+    .step-link:hover {
+        color: var(--secondary-pink);
+    }
+
+    /* --- Fade in animation for steps --- */
+    @keyframes fadeInBottom {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+      .hero-text {
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+      .hero-illustration {
+          height: 300px; /* Adjust height */
+          padding-left: 0; /* Remove padding */
+          width: 100%; /* Full width */
+      }
+      /* Removed .hero-illustration::after styling as it's no longer needed */
+      .hero-illustration img {
+        width: 95%;
+        height: 250px;
+      }
+      .hero-text h1 {
+        font-size: 2.8rem;
+      }
+      .hero-text p {
+        font-size: 1rem;
+      }
+      .wave-divider {
+        height: 60px;
+      }
+      .wave-divider svg {
+        height: 60px;
+      }
+      .topic-steps-container::before {
+        display: none; /* Hide line on smaller screens */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      .topics-section h2 {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text .btn {
+        padding: 12px 25px;
+      }
+      .topic-steps-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container navbar">
+      <div class="logo"><span></span></div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#" class="active">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="#topics">Programs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Java Project</h1>
+        <p>
+          Dive deep into Core Java programming concepts with a structured and comprehensive overview.
+          This project guides you through essential topics to build strong foundational knowledge.
+        </p>
+        <p><strong>Student:</strong> Vinay 4074/23</p>
+        <p><strong>Mentor:</strong> MR Chetan Gupta</p>
+        <a href="#topics" class="btn">READ MORE</a>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" alt="Java Project Illustration">
+      </div>
+    </div>
+    
+    <div class="wave-divider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-7.79,113.24-17.54,163.79-29.77c41.34-9.13,84.26-15.6,131.26-20.53c52.12-5.42,127.14,9.36,170.16,21.26c26.1,7.48,51.21,12.23,76.53,15.9c.04.02.08.02.12.02,2.71.38,5.4.74,8.1,1.06,126.43,14.62,236.63-2.82,279.13-32.09c8.24-5.74,17.75-10.74,27.27-14.89,17.96-7.85,34.82-11.75,47.88-14.2C1167.31,10.63,1200,10.23,1200,10.23V0H0V21.43C0,21.43,26.02,6.58,69.54,1.4C108.68-3.48,154.39,1.75,198.05,8.81C237.5,15.43,271.74,27.79,311,46.59l.39.19.42.2ZM0,0V120H1200V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <main class="topics-section" id="topics">
+    <div class="container">
+      <h2>Core Java Programming - Topics</h2>
+      <div class="topic-steps-container" id="topicsContainer">
+        </div>
+    </div>
+  </main>
+  
+  <script>
+    // --- UPDATED JAVASCRIPT ---
+    const topicLinks = {
+      "APPLETS": "Applets.html",
+      "BASIC PROGRAMMING CONSTRUCTS": "BasicProgrammingConstructs.html",
+      "DATA CONVERSION": "DataConversion.html",
+      "DELEGATION EVENT MODEL": "DelegationEventModel.html",
+      "EXCEPTION HANDLING": "ExceptionHandling.html",
+      "FUNCTIONS": "Functions.html",
+      "GRAPHICAL USER INTERFACE (AWT)": "GUI_AWT.html",
+      "GRAPHICAL USER INTERFACE (SWINGS)": "GUI_Swings.html",
+      "INHERITANCE": "Inheritance.html",
+      "INPUT/OUTPUT": "InputOutput.html",
+      "INTERFACES": "Interfaces.html",
+      "JAVA DATABASE CONNECTIVITY": "JavaDatabaseConnectivity.html",
+      "MULTI-DIMENSION ARRAYS": "MultiDimensionArrays.html",
+      "MULTITHREADING": "Multithreading.html",
+      "OBJECT ORIENTED PROGRAMMING": "ObjectOrientedProgramming.html",
+      "PACKAGES": "Packages.html",
+      "SINGLE DIMENSION ARRAYS": "SingleDimensionArrays.html",
+      "STRINGS": "Strings.html"
+    };
+
+    const container = document.getElementById("topicsContainer");
+
+    // Get all the topic names from the 'topicLinks' object
+    const topics = Object.keys(topicLinks);
+
+    // Loop through each topic and create a new topic step card
+    topics.forEach((topic, index) => {
+      const step = document.createElement("div");
+      step.className = "topic-step";
+      step.style.animationDelay = `${index * 0.1}s`; // Staggered animation
+
+      const stepNumber = document.createElement("div");
+      stepNumber.className = "step-number";
+      stepNumber.textContent = (index + 1).toString().padStart(2, '0'); // e.g., "01", "02"
+
+      const stepTitle = document.createElement("h3");
+      stepTitle.className = "step-title";
+      stepTitle.textContent = topic;
+
+      const stepLink = document.createElement("a");
+      stepLink.className = "step-link";
+      stepLink.href = topicLinks[topic]; // Set the actual link
+      stepLink.textContent = "View Details →"; // Or any other suitable text
+
+      step.appendChild(stepNumber);
+      step.appendChild(stepTitle);
+      step.appendChild(stepLink); // Add the link to the card
+
+      container.appendChild(step);
+    });
+
+  </script>
+</body>
+</html>

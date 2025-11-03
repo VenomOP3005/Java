@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Java Project</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CSS Variables (Theme colors from index.html) --- */
+    :root {
+      --primary-purple: #5c35da;
+      --secondary-pink: #ff3e7f;
+      --text-dark: #333;
+      --text-light: #fff;
+      --text-grey: #666;
+      --bg-white: #fff;
+      --bg-light-grey: #f8f8f8;
+      --header-bg: #fff;
+      --button-bg: #fff;
+      --button-text: var(--primary-purple);
+      --link-hover: var(--secondary-pink);
+    }
+
+    /* --- Global Styles (from index.html) --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    
+    p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-purple);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    /* --- Header & Navigation (from index.html) --- */
+    header.main-header {
+      background-color: var(--header-bg);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+    }
+    .logo span {
+      color: var(--secondary-pink);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li a {
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links li a.active,
+    .nav-links li a:hover {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+    }
+
+    /* --- Hero Section (from index.html) --- */
+    .hero-section {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      padding: 80px 0 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+
+    .hero-text {
+      flex: 1;
+      max-width: 50%;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+
+    .hero-text .btn {
+      display: inline-block;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-text .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+      color: var(--primary-purple);
+    }
+    
+    .hero-illustration {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        position: relative;
+        min-height: 350px;
+    }
+
+    .hero-illustration img {
+        position: relative;
+        z-index: 2;
+        width: 90%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* --- Wavy Divider (from index.html) --- */
+    .wave-divider {
+      position: relative;
+      height: 100px;
+      background-color: var(--primary-purple);
+      margin-top: -1px;
+    }
+
+    .wave-divider svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      fill: var(--bg-white);
+    }
+
+    /* --- NEW: About Content Section --- */
+    .content-section {
+      padding: 60px 0 80px;
+      background-color: var(--bg-white);
+    }
+
+    .content-section h2 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    /* NEW: Info Card for Developer Details */
+    .info-card {
+      max-width: 600px;
+      margin: 0 auto 60px auto;
+      background-color: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 30px 40px;
+      text-align: left;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      animation: fadeInBottom 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .info-card p {
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+    }
+    
+    .info-card p strong {
+      color: var(--primary-purple);
+      font-weight: 600;
+      display: inline-block;
+      width: 120px; /* Aligns the text */
+    }
+
+    /* --- REUSED: Topic Steps Layout (from index.html) --- */
+    .topic-steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 40px;
+      position: relative;
+    }
+
+    .topic-step {
+      background-color: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeInBottom 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    
+    /* Make the hover different since it's not a link */
+    .topic-step:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+      border-color: var(--primary-purple);
+    }
+
+    .step-number {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      border: 3px solid #fff;
+    }
+
+    .step-title {
+      font-size: 1.1rem; /* Slightly smaller for facts */
+      margin-bottom: 10px;
+      color: var(--text-dark);
+      line-height: 1.5;
+    }
+    
+    .step-title strong {
+        color: var(--secondary-pink); /* Highlight keywords */
+    }
+
+
+    /* --- NEW: Footer --- */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        margin-top: 40px;
+        background-color: var(--bg-light-grey);
+        border-top: 1px solid #eee;
+        color: var(--text-grey);
+    }
+    
+    footer span {
+        color: var(--primary-purple);
+        font-weight: 600;
+    }
+
+    /* --- Fade in animation --- */
+    @keyframes fadeInBottom {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+
+    /* --- Responsive Adjustments (from index.html) --- */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+      .hero-text {
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+      .hero-illustration {
+          height: 300px;
+          padding-left: 0;
+          width: 100%;
+      }
+      .hero-illustration img {
+        width: 95%;
+        height: 250px;
+      }
+      .hero-text h1 {
+        font-size: 2.8rem;
+      }
+      .hero-text p {
+        font-size: 1rem;
+      }
+      .wave-divider { height: 60px; }
+      .wave-divider svg { height: 60px; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-text h1 { font-size: 2.2rem; }
+      .content-section h2 { font-size: 2rem; }
+      .info-card { padding: 20px; }
+      .info-card p strong { width: 100px; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text .btn { padding: 12px 25px; }
+      .topic-steps-container { grid-template-columns: 1fr; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container navbar">
+      <div class="logo"><span></span></div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li> 
+          <li><a href="#" class="active">About</a></li> 
+          <li><a href="index.html#topics">Programs</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>About The Developer</h1>
+        <p>
+          Code Smart. Think Java. Learn, Build, and Innovate!
+          This page details the developer behind this project and some key facts about Java.
+        </p>
+        <a href="index.html#topics" class="btn">VIEW PROGRAMS</a>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" alt="Java Project Illustration">
+      </div>
+    </div>
+    
+    <div class="wave-divider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-7.79,113.24-17.54,163.79-29.77c41.34-9.13,84.26-15.6,131.26-20.53c52.12-5.42,127.14,9.36,170.16,21.26c26.1,7.48,51.21,12.23,76.53,15.9c.04.02.08.02.12.02,2.71.38,5.4.74,8.1,1.06,126.43,14.62,236.63-2.82,279.13-32.09c8.24-5.74,17.75-10.74,27.27-14.89,17.96-7.85,34.82-11.75,47.88-14.2C1167.31,10.63,1200,10.23,1200,10.23V0H0V21.43C0,21.43,26.02,6.58,69.54,1.4C108.68-3.48,154.39,1.75,198.05,8.81C237.5,15.43,271.74,27.79,311,46.59l.39.19.42.2ZM0,0V120H1200V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <main class="content-section" id="about">
+    <div class="container">
+    
+      <h2>Developer Details</h2>
+      <div class="info-card" id="infoCard">
+        <p><strong>Name:</strong> Vinay</p>
+        <p><strong>Class:</strong> BCA 5th Semester</p>
+        <p><strong>Roll No:</strong> 4074</p>
+        <p><strong>Mentor:</strong> Mr. Chetan Gupta</p>
+      </div>
+
+      <h2>Fun Facts About Java</h2>
+      <div class="topic-steps-container" id="topicsContainer">
+        
+        <div class="topic-step" style="animation-delay: 0.1s;">
+          <div class="step-number">01</div>
+          <h3 class="step-title">Java is <strong>platform-independent</strong>.</h3>
+        </div>
+        
+        <div class="topic-step" style="animation-delay: 0.2s;">
+          <div class="step-number">02</div>
+          <h3 class="step-title">It follows <strong>“Write Once, Run Anywhere”</strong> (WORA).</h3>
+        </div>
+        
+        <div class="topic-step" style="animation-delay: 0.3s;">
+          <div class="step-number">03</div>
+          <h3 class="step-title">Used for <strong>web, mobile, and enterprise</strong> applications.</h3>
+        </div>
+        
+        <div class="topic-step" style="animation-delay: 0.4s;">
+          <div class="step-number">04</div>
+          <h3 class="step-title">Supports <strong>OOPs, multithreading,</strong> and <strong>exception handling.</strong></h3>
+        </div>
+        
+        <div class="topic-step" style="animation-delay: 0.5s;">
+          <div class="step-number">05</div>
+          <h3 class="step-title">Frameworks like <strong>Spring</strong> and <strong>Hibernate</strong> make it enterprise-ready.</h3>
+        </div>
+        
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© 2025 <span>JavaPro</span> | Designed by <span>Vinay</span> | Mentor: <span>Mr. Chetan Gupta</span></p>
+  </footer>
+  
+  <script>
+    // Simple fade-in animation for the info card
+    // The topic cards have their own inline animation delay
+    window.addEventListener("load",()=>{
+      const infoCard = document.getElementById("infoCard");
+      // Use a small timeout to ensure styles are loaded
+      setTimeout(() => {
+        infoCard.style.opacity = 1;
+        infoCard.style.transform = "translateY(0)";
+      }, 100);
+    });
+  </script>
+</body>
+</html>

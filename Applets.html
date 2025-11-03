@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Applets - Core Java Programming</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CSS Variables (Theme colors) --- */
+    :root {
+      --primary-purple: #5c35da;
+      --secondary-pink: #ff3e7f;
+      --text-dark: #333;
+      --text-light: #fff;
+      --text-grey: #666;
+      --bg-white: #fff;
+      --bg-light-grey: #f8f8f8;
+      --header-bg: #fff;
+      --button-bg: #fff;
+      --button-text: var(--primary-purple);
+      --link-hover: var(--secondary-pink);
+    }
+
+    /* --- Global Styles --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      /* --- 1. WIDENED LAYOUT --- */
+      max-width: 1400px; 
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    
+    p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-purple);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    /* --- Header & Navigation --- */
+    header.main-header {
+      background-color: var(--header-bg);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li a {
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links li a.active,
+    .nav-links li a:hover {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+    }
+
+    /* --- Hero Section --- */
+    .hero-section {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      padding: 80px 0 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+
+    .hero-text {
+      flex: 1;
+      /* --- 1. WIDENED LAYOUT --- */
+      max-width: 55%;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+
+    .hero-text .btn {
+      display: inline-block;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-text .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+      color: var(--primary-purple);
+    }
+    
+    .hero-illustration {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        position: relative;
+        min-height: 350px;
+    }
+
+    .hero-illustration img {
+        position: relative;
+        z-index: 2;
+        width: 90%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* --- Wavy Divider --- */
+    .wave-divider {
+      position: relative;
+      height: 100px;
+      background-color: var(--primary-purple);
+      margin-top: -1px;
+    }
+
+    .wave-divider svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      fill: var(--bg-white);
+    }
+
+    /* --- Program Content Section --- */
+    .content-section {
+      padding: 60px 0 80px;
+      background-color: var(--bg-white);
+    }
+
+    .content-section > .container > h2 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .program-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    /* Program Sidebar */
+    .program-sidebar {
+      /* --- 1. WIDENED LAYOUT --- */
+      flex: 0 0 300px; /* Increased from 280px */
+      position: sticky;
+      top: 100px;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+      
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .program-sidebar h3 {
+      text-align: center;
+      color: var(--primary-purple);
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .program-sidebar ul {
+      list-style: none;
+    }
+    
+    .program-sidebar ul li a {
+      color: var(--text-grey);
+      text-decoration: none;
+      transition: all 0.3s;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .program-sidebar ul li a:hover {
+      background: var(--bg-light-grey);
+      color: var(--primary-purple);
+    }
+
+    /* Program Content Area */
+    .program-content {
+      flex: 1;
+      min-width: 0; 
+    }
+    
+    /* Individual Program Card */
+    .program {
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+    
+    .program h3 {
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    /* Code Block Style */
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
+    
+    /* Output Block Style */
+    .output {
+      background: var(--bg-light-grey);
+      padding: 10px 15px;
+      border-left: 5px solid var(--primary-purple);
+      margin-top: 15px;
+      border-radius: 0 6px 6px 0;
+      color: var(--text-dark);
+      font-size: 0.95em;
+    }
+
+    /* --- Footer --- */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        margin-top: 40px;
+        background-color: var(--bg-light-grey);
+        border-top: 1px solid #eee;
+        color: var(--text-grey);
+    }
+    
+    footer span {
+        color: var(--primary-purple);
+        font-weight: 600;
+    }
+
+    /* --- 2. BACK TO TOP BUTTON --- */
+    #backToTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: var(--primary-purple);
+      color: white;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 18px;
+      line-height: 1;
+      transition: background-color 0.3s ease;
+    }
+    #backToTopBtn:hover {
+      background-color: var(--secondary-pink);
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+      .hero-text {
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+      .hero-illustration {
+          height: 300px;
+          padding-left: 0;
+          width: 100%;
+      }
+      .hero-illustration img {
+        width: 95%;
+        height: 250px;
+      }
+      .hero-text h1 { font-size: 2.8rem; }
+      .hero-text p { font-size: 1rem; }
+      .wave-divider { height: 60px; }
+      .wave-divider svg { height: 60px; }
+      
+      .program-layout {
+        flex-direction: column;
+      }
+      .program-sidebar {
+        position: static;
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-text h1 { font-size: 2.2rem; }
+      .content-section > .container > h2 { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text .btn { padding: 12px 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container navbar">
+      <div class="logo">JavaPro</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li> 
+          <li><a href="about.html">About</a></li> 
+          <li><a href="index.html#topics">Programs</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Pages ▾</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Core Java Programming - Applets</h1>
+        <p>Practice and learn Java Applet programs with output and explanations</p>
+        <a href="index.html#topics" class="btn">BACK TO TOPICS</a>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" alt="Java Project Illustration">
+      </div>
+    </div>
+    
+    <div class="wave-divider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-7.79,113.24-17.54,163.79-29.77c41.34-9.13,84.26-15.6,131.26-20.53c52.12-5.42,127.14,9.36,170.16,21.26c26.1,7.48,51.21,12.23,76.53,15.9c.04.02.08.02.12.02,2.71.38,5.4.74,8.1,1.06,126.43,14.62,236.63-2.82,279.13-32.09c8.24-5.74,17.75-10.74,27.27-14.89,17.96-7.85,34.82-11.75,47.88-14.2C1167.31,10.63,1200,10.23,1200,10.23V0H0V21.43C0,21.43,26.02,6.58,69.54,1.4C108.68-3.48,154.39,1.75,198.05,8.81C237.5,15.43,271.74,27.79,311,46.59l.39.19.42.2ZM0,0V120H1200V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <main class="content-section">
+    <div class="container">
+      <h2>Applet Practice Problems</h2>
+      
+      <div class="program-layout">
+        
+        <aside class="program-sidebar">
+          <h3>Applets Menu</h3>
+          <ul id="menuList"></ul>
+        </aside>
+
+        <section class="program-content" id="programs">
+          </section>
+        
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© 2025 <span>JavaPro</span> | Designed by <span>Vinay-4074/23</span> | Mentor: <span>Mr. Chetan Gupta</span></p>
+  </footer>
+  
+  <a href="#" id="backToTopBtn" title="Go to top">&#9650;</a>
+
+  <script>
+    // --- Original script to populate programs ---
+    const programs = [
+      {title:"1. Create an applet showing the string 'Hello World' embedded in HTML page.", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class HelloWorldApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawString("Hello World", 50, 50);
+    }
+}`, output:"Displays 'Hello World' text on browser window."},
+      {title:"2. Applet showing 'Hello World' executed by AppletViewer", code:`import java.applet.Applet;
+import java.awt.Graphics;
+/*
+<applet code="HelloWorldApplet.class" width="300" height="100"></applet>
+*/
+public class HelloWorldApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawString("Hello World using AppletViewer", 50, 50);
+    }
+}`, output:"Displays text 'Hello World using AppletViewer'."},
+      {title:"3. Applet to draw a Circle", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class CircleApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawOval(50, 50, 100, 100);
+    }
+}`, output:"A circle with diameter 100 pixels."},
+      {title:"4. Applet to draw a Polygon", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class PolygonApplet extends Applet {
+    public void paint(Graphics g) {
+        int x[] = {50, 100, 150, 200, 250};
+        int y[] = {250, 150, 200, 100, 250};
+        g.drawPolygon(x, y, 5);
+    }
+}`, output:"Draws a 5-sided polygon."},
+      {title:"5. Applet to draw a Rectangle", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class RectangleApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawRect(50, 50, 150, 100);
+    }
+}`, output:"Draws a rectangle."},
+      {title:"6. Applet to draw a Square", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class SquareApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawRect(50, 50, 100, 100);
+    }
+}`, output:"Draws a square."},
+      {title:"7. Applet to draw 4 concentric circles", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class ConcentricCirclesApplet extends Applet {
+    public void paint(Graphics g) {
+        for(int i=1; i<=4; i++) {
+            g.drawOval(50 - i*10, 50 - i*10, 100 + i*20, 100 + i*20);
+        }
+    }
+}`, output:"Four circles with same center but increasing radius."},
+      {title:"8. Applet to draw a Line", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class LineApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawLine(20, 20, 200, 200);
+    }
+}`, output:"Draws a straight line from (20,20) to (200,200)."},
+      {title:"9. Applet to draw an Oval", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class OvalApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawOval(50, 50, 150, 100);
+    }
+}`, output:"Draws an oval shape."},
+      {title:"10. Applet to draw an Arc", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class ArcApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawArc(50, 50, 100, 100, 0, 120);
+    }
+}`, output:"Draws a 120° arc of a circle."},
+      {title:"11. Applet to change background color", code:`import java.applet.Applet;
+import java.awt.Color;
+import java.awt.Graphics;
+public class BgColorApplet extends Applet {
+    public void init() {
+        setBackground(Color.cyan);
+    }
+    public void paint(Graphics g) {
+        g.drawString("Background color changed!", 50, 50);
+    }
+}`, output:"Background appears cyan with text 'Background color changed!'."},
+      {title:"12. Applet to draw a Rounded Rectangle", code:`import java.applet.Applet;
+import java.awt.Graphics;
+public class RoundedRectApplet extends Applet {
+    public void paint(Graphics g) {
+        g.drawRoundRect(50, 50, 150, 100, 20, 20);
+    }
+}`, output:"Draws a rectangle with rounded corners."},
+      {title:"13. Applet to set Font", code:`import java.applet.Applet;
+import java.awt.*;
+public class FontApplet extends Applet {
+    public void paint(Graphics g) {
+        Font f = new Font("Arial", Font.BOLD, 20);
+        g.setFont(f);
+        g.drawString("Java Font Example", 50, 100);
+    }
+}`, output:"Displays 'Java Font Example' in bold Arial font."},
+      {title:"14. Applet to display Digital Clock", code:`import java.applet.*;
+import java.awt.*;
+import java.util.*;
+public class DigitalClockApplet extends Applet implements Runnable {
+    Thread t = null;
+    int hours=0, minutes=0, seconds=0;
+    String timeString = "";
+    public void init() { start(); }
+    public void start() {
+        t = new Thread(this);
+        t.start();
+    }
+    public void run() {
+        try {
+            while(true) {
+                Calendar cal = Calendar.getInstance();
+                hours = cal.get(Calendar.HOUR_OF_DAY);
+                minutes = cal.get(Calendar.MINUTE);
+                seconds = cal.get(Calendar.SECOND);
+                timeString = hours + ":" + minutes + ":" + seconds;
+                repaint();
+                Thread.sleep(1000);
+            }
+        } catch(Exception e) {}
+    }
+    public void paint(Graphics g) {
+        g.drawString(timeString, 100, 100);
+    }
+}`, output:"Continuously updates current time every second."},
+      {title:"15. Applet to draw a Smiling Face", code:`import java.applet.Applet;
+import java.awt.*;
+public class SmilingFaceApplet extends Applet {
+    public void paint(Graphics g) {
+        g.setColor(Color.yellow);
+        g.fillOval(60, 60, 200, 200);
+        g.setColor(Color.black);
+        g.fillOval(110, 120, 20, 20);
+        g.fillOval(190, 120, 20, 20);
+        g.drawArc(110, 130, 80, 80, 0, -180);
+    }
+}`, output:"Draws a yellow smiling face."}
+    ];
+
+    const section = document.getElementById("programs");
+    const menuList = document.getElementById("menuList");
+
+    programs.forEach((prog, i) => {
+      const div = document.createElement("div");
+      div.className = "program";
+      div.id = "prog" + (i + 1);
+      div.innerHTML = `
+        <h3>${prog.title}</h3>
+        <pre>${prog.code.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</pre>
+        <div class="output"><strong>Output:</strong> ${prog.output}</div>`;
+      section.appendChild(div);
+
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="#prog${i + 1}">${prog.title}</a>`;
+      menuList.appendChild(li);
+    });
+  </script>
+
+  <script>
+    const topBtn = document.getElementById("backToTopBtn");
+    
+    // Show button when user scrolls down 300px
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+    
+    // Smooth scroll to top when clicked
+    topBtn.onclick = function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    };
+  </script>
+
+</body>
+</html>

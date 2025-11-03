@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Interfaces - Core Java Programming</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CSS Variables (Theme colors) --- */
+    :root {
+      --primary-purple: #5c35da;
+      --secondary-pink: #ff3e7f;
+      --text-dark: #333;
+      --text-light: #fff;
+      --text-grey: #666;
+      --bg-white: #fff;
+      --bg-light-grey: #f8f8f8;
+      --header-bg: #fff;
+      --button-bg: #fff;
+      --button-text: var(--primary-purple);
+      --link-hover: var(--secondary-pink);
+    }
+
+    /* --- Global Styles --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      /* --- 1. WIDENED LAYOUT --- */
+      max-width: 1400px; 
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    
+    p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-purple);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    /* --- Header & Navigation --- */
+    header.main-header {
+      background-color: var(--header-bg);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li a {
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links li a.active,
+    .nav-links li a:hover {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+    }
+
+    /* --- Hero Section --- */
+    .hero-section {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      padding: 80px 0 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+
+    .hero-text {
+      flex: 1;
+      /* --- 1. WIDENED LAYOUT --- */
+      max-width: 55%;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+
+    .hero-text .btn {
+      display: inline-block;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-text .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+      color: var(--primary-purple);
+    }
+    
+    .hero-illustration {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        position: relative;
+        min-height: 350px;
+    }
+
+    .hero-illustration img {
+        position: relative;
+        z-index: 2;
+        width: 90%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* --- Wavy Divider --- */
+    .wave-divider {
+      position: relative;
+      height: 100px;
+      background-color: var(--primary-purple);
+      margin-top: -1px;
+    }
+
+    .wave-divider svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      fill: var(--bg-white);
+    }
+
+    /* --- Program Content Section --- */
+    .content-section {
+      padding: 60px 0 80px;
+      background-color: var(--bg-white);
+    }
+
+    .content-section > .container > h2 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .program-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    /* Program Sidebar */
+    .program-sidebar {
+      /* --- 1. WIDENED LAYOUT --- */
+      flex: 0 0 300px; /* Increased from 280px */
+      position: sticky;
+      top: 100px;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+      
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .program-sidebar h3 {
+      text-align: center;
+      color: var(--primary-purple);
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .program-sidebar ul {
+      list-style: none;
+    }
+    
+    .program-sidebar ul li a {
+      color: var(--text-grey);
+      text-decoration: none;
+      transition: all 0.3s;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .program-sidebar ul li a:hover {
+      background: var(--bg-light-grey);
+      color: var(--primary-purple);
+    }
+
+    /* Program Content Area */
+    .program-content {
+      flex: 1;
+      min-width: 0; 
+    }
+    
+    /* Individual Program Card */
+    .program {
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+    
+    .program h3 {
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    /* Code Block Style */
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
+    
+    /* Output Block Style */
+    .output {
+      background: var(--bg-light-grey);
+      padding: 10px 15px;
+      border-left: 5px solid var(--primary-purple);
+      margin-top: 15px;
+      border-radius: 0 6px 6px 0;
+      color: var(--text-dark);
+      font-size: 0.95em;
+    }
+
+    /* --- Footer --- */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        margin-top: 40px;
+        background-color: var(--bg-light-grey);
+        border-top: 1px solid #eee;
+        color: var(--text-grey);
+    }
+    
+    footer span {
+        color: var(--primary-purple);
+        font-weight: 600;
+    }
+
+    /* --- 2. BACK TO TOP BUTTON --- */
+    #backToTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: var(--primary-purple);
+      color: white;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 18px;
+      line-height: 1;
+      transition: background-color 0.3s ease;
+    }
+    #backToTopBtn:hover {
+      background-color: var(--secondary-pink);
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+      .hero-text {
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+      .hero-illustration {
+          height: 300px;
+          padding-left: 0;
+          width: 100%;
+      }
+      .hero-illustration img {
+        width: 95%;
+        height: 250px;
+      }
+      .hero-text h1 { font-size: 2.8rem; }
+      .hero-text p { font-size: 1rem; }
+      .wave-divider { height: 60px; }
+      .wave-divider svg { height: 60px; }
+      
+      .program-layout {
+        flex-direction: column;
+      }
+      .program-sidebar {
+        position: static;
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-text h1 { font-size: 2.2rem; }
+      .content-section > .container > h2 { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text .btn { padding: 12px 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container navbar">
+      <div class="logo">JAVA</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li> 
+          <li><a href="about.html">About</a></li> 
+          <li><a href="index.html#topics">Programs</a></li>
+          <li><a href="#">Syllabus</a></li>
+          <li><a href="#">Pages ▾</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Core Java Programming - Interfaces</h1>
+        <p>Practice and learn Java Interfaces programs with output and explanations</p>
+        <a href="index.html#topics" class="btn">BACK TO TOPICS</a>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" alt="Java Project Illustration">
+      </div>
+    </div>
+    
+    <div class="wave-divider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-7.79,113.24-17.54,163.79-29.77c41.34-9.13,84.26-15.6,131.26-20.53c52.12-5.42,127.14,9.36,170.16,21.26c26.1,7.48,51.21,12.23,76.53,15.9c.04.02.08.02.12.02,2.71.38,5.4.74,8.1,1.06,126.43,14.62,236.63-2.82,279.13-32.09c8.24-5.74,17.75-10.74,27.27-14.89,17.96-7.85,34.82-11.75,47.88-14.2C1167.31,10.63,1200,10.23,1200,10.23V0H0V21.43C0,21.43,26.02,6.58,69.54,1.4C108.68-3.48,154.39,1.75,198.05,8.81C237.5,15.43,271.74,27.79,311,46.59l.39.19.42.2ZM0,0V120H1200V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <main class="content-section">
+    <div class="container">
+      <h2>Interfaces - Practice Problems</h2>
+      
+      <div class="program-layout">
+        
+        <aside class="program-sidebar">
+          <h3>Interfaces Menu</h3>
+          <ul id="menuList"></ul>
+        </aside>
+
+        <section class="program-content" id="programs">
+          </section>
+        
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© 2025 <span>JavaPro</span> | Designed by <span>Vinay-4074/23</span> | Mentor: <span>Mr. Chetan Gupta</span></p>
+  </footer>
+
+  <a href="#" id="backToTopBtn" title="Go to top">&#9650;</a>
+  
+  <script>
+    // --- Original script with code escaping and formatting ---
+    const programs = [
+      {
+        title: "1. Write a Java program to create an interface Shape with the getArea() method. Create three classes Rectangle, Circle, and Triangle that implement the Shape interface. Implement the getArea() method for each of the three classes.",
+        code: `interface Shape {
+    double getArea();
+}
+
+class Rectangle implements Shape {
+    double length, width;
+
+    Rectangle(double l, double w) {
+        length = l;
+        width = w;
+    }
+
+    public double getArea() {
+        return length * width;
+    }
+}
+
+class Circle implements Shape {
+    double radius;
+
+    Circle(double r) {
+        radius = r;
+    }
+
+    public double getArea() {
+        return Math.PI * radius * radius;
+    }
+}
+
+class Triangle implements Shape {
+    double base, height;
+
+    Triangle(double b, double h) {
+        base = b;
+        height = h;
+    }
+
+    public double getArea() {
+        return 0.5 * base * height;
+    }
+}
+
+public class InterfaceShape {
+    public static void main(String[] args) {
+        Shape r = new Rectangle(5, 3);
+        Shape c = new Circle(4);
+        Shape t = new Triangle(6, 2);
+
+        System.out.println("Rectangle Area: " + r.getArea());
+        System.out.println("Circle Area: " + c.getArea());
+        System.out.println("Triangle Area: " + t.getArea());
+    }
+}`,
+        output: "Rectangle Area: 15.0<br>Circle Area: 50.265...<br>Triangle Area: 6.0"
+      },
+      {
+        title: "2. Write a Java program to create an interface Animal with a method called bark() that takes no arguments and returns void. Create a Dog class that implements Animal and overrides bark() to print 'Dog is barking'.",
+        code: `interface Animal {
+    void bark();
+}
+
+class Dog implements Animal {
+    public void bark() {
+        System.out.println("Dog is barking");
+    }
+}
+
+public class InterfaceAnimal {
+    public static void main(String[] args) {
+        Dog d = new Dog();
+        d.bark();
+    }
+}`,
+        output: "Dog is barking"
+      },
+      {
+        title: "3. Write a Java program to create an interface Flyable with a method called fly_obj(). Create three classes Spacecraft, Airplane, and Helicopter that implement the Flyable interface. Implement the fly_obj() method for each of the three classes.",
+        code: `interface Flyable {
+    void fly_obj();
+}
+
+class Spacecraft implements Flyable {
+    public void fly_obj() {
+        System.out.println("Spacecraft flies in space");
+    }
+}
+
+class Airplane implements Flyable {
+    public void fly_obj() {
+        System.out.println("Airplane flies in the sky");
+    }
+}
+
+class Helicopter implements Flyable {
+    public void fly_obj() {
+        System.out.println("Helicopter hovers and flies in air");
+    }
+}
+
+public class InterfaceFlyable {
+    public static void main(String[] args) {
+        Flyable f1 = new Spacecraft();
+        Flyable f2 = new Airplane();
+        Flyable f3 = new Helicopter();
+
+        f1.fly_obj();
+        f2.fly_obj();
+        f3.fly_obj();
+    }
+}`,
+        output: "Spacecraft flies in space<br>Airplane flies in the sky<br>Helicopter hovers and flies in air"
+      },
+      {
+        title: "4. Write a Java program to create a banking system with interfaces and classes for Bank, Account, SavingsAccount, and CurrentAccount.",
+        code: `import java.util.*;
+
+interface Account {
+    void deposit(double amount);
+    void withdraw(double amount);
+    double getBalance();
+}
+
+class SavingsAccount implements Account {
+    private double balance;
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        if (balance - amount < 100)
+            System.out.println("Minimum balance limit reached!");
+        else
+            balance -= amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+class CurrentAccount implements Account {
+    private double balance;
+
+    public void deposit(double amount) {
+        balance += amount;
+    }
+
+    public void withdraw(double amount) {
+        balance -= amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+class Bank {
+    private List<Account> accounts = new ArrayList<>();
+
+    public void addAccount(Account acc) {
+        accounts.add(acc);
+    }
+
+    public void showAllBalances() {
+        for (Account acc : accounts) {
+            System.out.println("Balance: " + acc.getBalance());
+        }
+    }
+}
+
+public class InterfaceBank {
+    public static void main(String[] args) {
+        Bank bank = new Bank();
+        SavingsAccount sa = new SavingsAccount();
+        CurrentAccount ca = new CurrentAccount();
+
+        sa.deposit(1000);
+        ca.deposit(5000);
+        sa.withdraw(950); // This will fail
+        ca.withdraw(2000);
+
+        bank.addAccount(sa);
+        bank.addAccount(ca);
+        
+        System.out.println("--- Bank Balances ---");
+        bank.showAllBalances();
+    }
+}`,
+        output: "Minimum balance limit reached!<br>--- Bank Balances ---<br>Balance: 1000.0<br>Balance: 3000.0"
+      },
+      {
+        title: "5. Write a Java program to create an interface Resizable with methods resizeWidth(int width) and resizeHeight(int height). Create a class Rectangle that implements the Resizable interface.",
+        code: `interface Resizable {
+    void resizeWidth(int width);
+    void resizeHeight(int height);
+}
+
+class Rectangle implements Resizable {
+    int width, height;
+
+    Rectangle(int w, int h) {
+        width = w;
+        height = h;
+    }
+
+    public void resizeWidth(int width) {
+        this.width = width;
+    }
+
+    public void resizeHeight(int height) {
+        this.height = height;
+    }
+
+    public void show() {
+        System.out.println("Width: " + width + ", Height: " + height);
+    }
+}
+
+public class InterfaceResizable {
+    public static void main(String[] args) {
+        Rectangle r = new Rectangle(10, 5);
+        r.show();
+        r.resizeWidth(20);
+        r.resizeHeight(15);
+        r.show();
+    }
+}`,
+        output: "Width: 10, Height: 5<br>Width: 20, Height: 15"
+      },
+      {
+        title: "6. Write a Java program to create an interface Drawable with a method draw(). Create classes Circle, Rectangle, and Triangle that implement the Drawable interface.",
+        code: `interface Drawable {
+    void draw();
+}
+
+class Circle implements Drawable {
+    public void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+class RectangleShape implements Drawable {
+    public void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+
+class Triangle implements Drawable {
+    public void draw() {
+        System.out.println("Drawing a Triangle");
+    }
+}
+
+public class InterfaceDrawable {
+    public static void main(String[] args) {
+        Drawable d1 = new Circle();
+        Drawable d2 = new RectangleShape();
+        Drawable d3 = new Triangle();
+
+        d1.draw();
+        d2.draw();
+        d3.draw();
+    }
+}`,
+        output: "Drawing a Circle<br>Drawing a Rectangle<br>Drawing a Triangle"
+      },
+      {
+        title: "7. Write a Java program to create an interface Sortable with a method sort() that sorts an array in ascending order. Implement BubbleSort and SelectionSort classes.",
+        code: `interface Sortable {
+    void sort(int[] arr);
+}
+
+class BubbleSort implements Sortable {
+    public void sort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println("Bubble Sorted: " + java.util.Arrays.toString(arr));
+    }
+}
+
+class SelectionSort implements Sortable {
+    public void sort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int min = i;
+            for (int j = i + 1; j < arr.length; j++) {
+                if (arr[j] < arr[min]) min = j;
+            }
+            int temp = arr[min];
+            arr[min] = arr[i];
+            arr[i] = temp;
+        }
+        System.out.println("Selection Sorted: " + java.util.Arrays.toString(arr));
+    }
+}
+
+public class InterfaceSort {
+    public static void main(String[] args) {
+        int[] arr = {5, 2, 9, 1, 5, 6};
+        new BubbleSort().sort(arr.clone());
+        new SelectionSort().sort(arr.clone());
+    }
+}`,
+        output: "Bubble Sorted: [1, 2, 5, 5, 6, 9]<br>Selection Sorted: [1, 2, 5, 5, 6, 9]"
+      },
+      {
+        title: "8. Write a Java program to create an interface Playable with a method play(). Create Football, Volleyball, and Basketball classes implementing Playable.",
+        code: `interface Playable {
+    void play();
+}
+
+class Football implements Playable {
+    public void play() {
+        System.out.println("Playing Football");
+    }
+}
+
+class Volleyball implements Playable {
+    public void play() {
+        System.out.println("Playing Volleyball");
+    }
+}
+
+class Basketball implements Playable {
+    public void play() {
+        System.out.println("Playing Basketball");
+    }
+}
+
+public class InterfacePlayable {
+    public static void main(String[] args) {
+        Playable p1 = new Football();
+        Playable p2 = new Volleyball();
+        Playable p3 = new Basketball();
+
+        p1.play();
+        p2.play();
+        p3.play();
+    }
+}`,
+        output: "Playing Football<br>Playing Volleyball<br>Playing Basketball"
+      },
+      {
+        title: "9. Write a Java program to create an interface Searchable with a method search(String keyword). Implement Document and WebPage classes.",
+        code: `interface Searchable {
+    boolean search(String keyword);
+}
+
+class Document implements Searchable {
+    String text = "This is a Java programming document.";
+
+    public boolean search(String keyword) {
+        return text.contains(keyword);
+    }
+}
+
+class WebPage implements Searchable {
+    String content = "Welcome to Java tutorials and examples.";
+
+    public boolean search(String keyword) {
+        return content.contains(keyword);
+    }
+}
+
+public class InterfaceSearchable {
+    public static void main(String[] args) {
+        Searchable doc = new Document();
+        Searchable web = new WebPage();
+
+        System.out.println("Document contains 'Java': " + doc.search("Java"));
+        System.out.println("WebPage contains 'examples': " + web.search("examples"));
+    }
+}`,
+        output: "Document contains 'Java': true<br>WebPage contains 'examples': true"
+      },
+      {
+        title: "10. Write a Java program to create an interface Encryptable with methods encrypt() and decrypt(). Create AES and RSA classes implementing the interface.",
+        code: `interface Encryptable {
+    String encrypt(String data);
+    String decrypt(String encryptedData);
+}
+
+class AES implements Encryptable {
+    // Simple reverse for demo
+    public String encrypt(String data) {
+        return new StringBuilder(data).reverse().toString();
+    }
+
+    public String decrypt(String encryptedData) {
+        return new StringBuilder(encryptedData).reverse().toString();
+    }
+}
+
+class RSA implements Encryptable {
+    // Simple uppercase for demo
+    public String encrypt(String data) {
+        return data.toUpperCase();
+    }
+
+    public String decrypt(String encryptedData) {
+        return encryptedData.toLowerCase();
+    }
+}
+
+public class InterfaceEncryptable {
+    public static void main(String[] args) {
+        Encryptable aes = new AES();
+        Encryptable rsa = new RSA();
+
+        String aesEnc = aes.encrypt("hello");
+        String rsaEnc = rsa.encrypt("hello");
+
+        System.out.println("AES Encrypted: " + aesEnc + ", Decrypted: " + aes.decrypt(aesEnc));
+        System.out.println("RSA Encrypted: " + rsaEnc + ", Decrypted: " + rsa.decrypt(rsaEnc));
+    }
+}`,
+        output: "AES Encrypted: olleh, Decrypted: hello<br>RSA Encrypted: HELLO, Decrypted: hello"
+      },
+      {
+        title: "11. Write a Java program to create an interface Sortable with a method sort() that sorts an array of integers in descending order. Create QuickSort and MergeSort classes implementing it.",
+        code: `interface Sortable {
+    void sort(int[] arr);
+}
+
+class QuickSort implements Sortable {
+    public void sort(int[] arr) {
+        quickSort(arr, 0, arr.length - 1);
+        System.out.println("QuickSort Desc: " + java.util.Arrays.toString(arr));
+    }
+
+    void quickSort(int[] arr, int low, int high) {
+        if (low < high) {
+            int pi = partition(arr, low, high);
+            quickSort(arr, low, pi - 1);
+            quickSort(arr, pi + 1, high);
+        }
+    }
+
+    int partition(int[] arr, int low, int high) {
+        int pivot = arr[high];
+        int i = (low - 1);
+        for (int j = low; j < high; j++) {
+            if (arr[j] > pivot) { // Changed to > for descending
+                i++;
+                int temp = arr[i];
+                arr[i] = arr[j];
+                arr[j] = temp;
+            }
+        }
+        int temp = arr[i + 1];
+        arr[i + 1] = arr[high];
+        arr[high] = temp;
+        return i + 1;
+    }
+}
+
+class MergeSort implements Sortable {
+    public void sort(int[] arr) {
+        mergeSort(arr, 0, arr.length - 1);
+        System.out.println("MergeSort Desc: " + java.util.Arrays.toString(arr));
+    }
+
+    void mergeSort(int[] arr, int l, int r) {
+        if (l < r) {
+            int m = (l + r) / 2;
+            mergeSort(arr, l, m);
+            mergeSort(arr, m + 1, r);
+            merge(arr, l, m, r);
+        }
+    }
+
+    void merge(int[] arr, int l, int m, int r) {
+        int n1 = m - l + 1, n2 = r - m;
+        int[] L = new int[n1];
+        int[] R = new int[n2];
+        for (int i = 0; i < n1; ++i) L[i] = arr[l + i];
+        for (int j = 0; j < n2; ++j) R[j] = arr[m + 1 + j];
+        int i = 0, j = 0, k = l;
+        while (i < n1 && j < n2) {
+            if (L[i] >= R[j]) arr[k++] = L[i++]; // Changed to >= for descending
+            else arr[k++] = R[j++];
+        }
+        while (i < n1) arr[k++] = L[i++];
+        while (j < n2) arr[k++] = R[j++];
+    }
+}
+
+public class InterfaceSorting {
+    public static void main(String[] args) {
+        int[] arr = {10, 3, 5, 8, 2};
+        new QuickSort().sort(arr.clone());
+        new MergeSort().sort(arr.clone());
+    }
+}`,
+        output: "QuickSort Desc: [10, 8, 5, 3, 2]<br>MergeSort Desc: [10, 8, 5, 3, 2]"
+      }
+    ];
+
+    const section = document.getElementById("programs");
+    const menuList = document.getElementById("menuList");
+
+    programs.forEach((prog, i) => {
+      const div = document.createElement("div");
+      div.className = "program";
+      div.id = "prog" + (i + 1);
+      // Added HTML escaping for the code
+      const escapedCode = prog.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      div.innerHTML = `
+        <h3>${prog.title}</h3>
+        <pre>${escapedCode}</pre>
+        <div class="output"><strong>Output:</strong> ${prog.output.replace(/\n/g, "<br>")}</div>`;
+      section.appendChild(div);
+
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="#prog${i + 1}">${prog.title}</a>`;
+      menuList.appendChild(li);
+    });
+  </script>
+
+  <script>
+    const topBtn = document.getElementById("backToTopBtn");
+    
+    // Show button when user scrolls down 300px
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+    
+    // Smooth scroll to top when clicked
+    topBtn.onclick = function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    };
+  </script>
+
+</body>
+</html>

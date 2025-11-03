@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Java Strings - Core Java Programming</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --- CSS Variables (Theme colors) --- */
+    :root {
+      --primary-purple: #5c35da;
+      --secondary-pink: #ff3e7f;
+      --text-dark: #333;
+      --text-light: #fff;
+      --text-grey: #666;
+      --bg-white: #fff;
+      --bg-light-grey: #f8f8f8;
+      --header-bg: #fff;
+      --button-bg: #fff;
+      --button-text: var(--primary-purple);
+      --link-hover: var(--secondary-pink);
+    }
+
+    /* --- Global Styles --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-dark);
+      background-color: var(--bg-white);
+      line-height: 1.6;
+    }
+
+    .container {
+      width: 90%;
+      /* --- 1. WIDENED LAYOUT --- */
+      max-width: 1400px; 
+      margin: 0 auto;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    
+    p {
+      color: var(--text-grey);
+      font-size: 1.1rem;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-purple);
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--link-hover);
+    }
+
+    /* --- Header & Navigation --- */
+    header.main-header {
+      background-color: var(--header-bg);
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-purple);
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links li a {
+      color: var(--text-dark);
+      font-weight: 500;
+      padding: 8px 15px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-links li a.active,
+    .nav-links li a:hover {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+    }
+
+    /* --- Hero Section --- */
+    .hero-section {
+      background-color: var(--primary-purple);
+      color: var(--text-light);
+      padding: 80px 0 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 80px;
+    }
+
+    .hero-text {
+      flex: 1;
+      /* --- 1. WIDENED LAYOUT --- */
+      max-width: 55%;
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 30px;
+    }
+
+    .hero-text .btn {
+      display: inline-block;
+      background-color: var(--button-bg);
+      color: var(--button-text);
+      padding: 15px 35px;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .hero-text .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+      color: var(--primary-purple);
+    }
+    
+    .hero-illustration {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-left: 20px;
+        position: relative;
+        min-height: 350px;
+    }
+
+    .hero-illustration img {
+        position: relative;
+        z-index: 2;
+        width: 90%;
+        height: 300px;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    /* --- Wavy Divider --- */
+    .wave-divider {
+      position: relative;
+      height: 100px;
+      background-color: var(--primary-purple);
+      margin-top: -1px;
+    }
+
+    .wave-divider svg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100px;
+      fill: var(--bg-white);
+    }
+
+    /* --- Program Content Section --- */
+    .content-section {
+      padding: 60px 0 80px;
+      background-color: var(--bg-white);
+    }
+
+    .content-section > .container > h2 {
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .program-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+    
+    /* Program Sidebar */
+    .program-sidebar {
+      /* --- 1. WIDENED LAYOUT --- */
+      flex: 0 0 300px; /* Increased from 280px */
+      position: sticky;
+      top: 100px;
+      height: calc(100vh - 120px);
+      overflow-y: auto;
+      
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+    
+    .program-sidebar h3 {
+      text-align: center;
+      color: var(--primary-purple);
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .program-sidebar ul {
+      list-style: none;
+    }
+    
+    .program-sidebar ul li a {
+      color: var(--text-grey);
+      text-decoration: none;
+      transition: all 0.3s;
+      display: block;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .program-sidebar ul li a:hover {
+      background: var(--bg-light-grey);
+      color: var(--primary-purple);
+    }
+
+    /* Program Content Area */
+    .program-content {
+      flex: 1;
+      min-width: 0; 
+    }
+    
+    /* Individual Program Card */
+    .program {
+      background: var(--bg-white);
+      border: 1px solid #eee;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      margin-bottom: 25px;
+    }
+    
+    .program h3 {
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+    
+    /* Code Block Style */
+    pre {
+      background: #272822;
+      color: #f8f8f2;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95em;
+      margin-top: 10px;
+    }
+    
+    /* Output Block Style */
+    .output {
+      background: var(--bg-light-grey);
+      padding: 10px 15px;
+      border-left: 5px solid var(--primary-purple);
+      margin-top: 15px;
+      border-radius: 0 6px 6px 0;
+      color: var(--text-dark);
+      font-size: 0.95em;
+    }
+
+    /* --- Footer --- */
+    footer {
+        text-align: center;
+        padding: 40px 20px;
+        margin-top: 40px;
+        background-color: var(--bg-light-grey);
+        border-top: 1px solid #eee;
+        color: var(--text-grey);
+    }
+    
+    footer span {
+        color: var(--primary-purple);
+        font-weight: 600;
+    }
+
+    /* --- 2. BACK TO TOP BUTTON --- */
+    #backToTopBtn {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 30px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: var(--primary-purple);
+      color: white;
+      cursor: pointer;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 18px;
+      line-height: 1;
+      transition: background-color 0.3s ease;
+    }
+    #backToTopBtn:hover {
+      background-color: var(--secondary-pink);
+    }
+
+    /* --- Responsive Adjustments --- */
+    @media (max-width: 992px) {
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 40px;
+      }
+      .hero-text {
+        max-width: 100%;
+        margin-bottom: 40px;
+      }
+      .hero-illustration {
+          height: 300px;
+          padding-left: 0;
+          width: 100%;
+      }
+      .hero-illustration img {
+        width: 95%;
+        height: 250px;
+      }
+      .hero-text h1 { font-size: 2.8rem; }
+      .hero-text p { font-size: 1rem; }
+      .wave-divider { height: 60px; }
+      .wave-divider svg { height: 60px; }
+      
+      .program-layout {
+        flex-direction: column;
+      }
+      .program-sidebar {
+        position: static;
+        height: auto;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 15px;
+      }
+      .nav-links {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .hero-text h1 { font-size: 2.2rem; }
+      .content-section > .container > h2 { font-size: 2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links {
+        flex-direction: column;
+        align-items: center;
+      }
+      .hero-text .btn { padding: 12px 25px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="main-header">
+    <div class="container navbar">
+      <div class="logo">JAVA</div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li> 
+          <li><a href="about.html">About</a></li> 
+          <li><a href="index.html#topics">Programs</a></li>
+          <li><a href="#">Syllabus</a></li>
+          <li><a href="#">Pages ▾</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero-section">
+    <div class="container hero-content">
+      <div class="hero-text">
+        <h1>Core Java Programming - Strings</h1>
+        <p>Practice and learn Java Strings programs with output and explanations</p>
+        <a href="index.html#topics" class="btn">BACK TO TOPICS</a>
+      </div>
+      <div class="hero-illustration">
+        <img src="https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg" alt="Java Project Illustration">
+      </div>
+    </div>
+    
+    <div class="wave-divider">
+      <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-7.79,113.24-17.54,163.79-29.77c41.34-9.13,84.26-15.6,131.26-20.53c52.12-5.42,127.14,9.36,170.16,21.26c26.1,7.48,51.21,12.23,76.53,15.9c.04.02.08.02.12.02,2.71.38,5.4.74,8.1,1.06,126.43,14.62,236.63-2.82,279.13-32.09c8.24-5.74,17.75-10.74,27.27-14.89,17.96-7.85,34.82-11.75,47.88-14.2C1167.31,10.63,1200,10.23,1200,10.23V0H0V21.43C0,21.43,26.02,6.58,69.54,1.4C108.68-3.48,154.39,1.75,198.05,8.81C237.5,15.43,271.74,27.79,311,46.59l.39.19.42.2ZM0,0V120H1200V0Z" class="shape-fill"></path>
+      </svg>
+    </div>
+  </section>
+
+  <main class="content-section">
+    <div class="container">
+      <h2>Strings - Practice Problems</h2>
+      
+      <div class="program-layout">
+        
+        <aside class="program-sidebar">
+          <h3>Strings Menu</h3>
+          <ul id="menuList"></ul>
+        </aside>
+
+        <section class="program-content" id="programs">
+          </section>
+        
+      </div>
+    </div>
+  </main>
+  
+  <footer>
+    <p>© 2025 <span>JavaPro</span> | Designed by <span>Vinay-4074/23</span> | Mentor: <span>Mr. Chetan Gupta</span></p>
+  </footer>
+
+  <a href="#" id="backToTopBtn" title="Go to top">&#9650;</a>
+  
+  <script>
+    // --- Original script with code/output fixed ---
+    const programs = [
+      {
+        title: "1. Program to Check if a String contains only digits",
+        code: `
+public class OnlyDigits {
+    public static void main(String[] args) {
+        String str = "123456";
+        boolean isDigit = str.matches("\\\\d+");
+        System.out.println("Contains only digits: " + isDigit);
+    }
+}`,
+        output: "Contains only digits: true"
+      },
+      {
+        title: "2. Program to perform Deep Copy for String",
+        code: `
+public class DeepCopyString {
+    public static void main(String[] args) {
+        String original = "Java Programming";
+        String copy = new String(original);
+        System.out.println("Original: " + original);
+        System.out.println("Copied: " + copy);
+        System.out.println("Are they same object? " + (original == copy));
+    }
+}`,
+        output: "Original: Java Programming<br>Copied: Java Programming<br>Are they same object? false"
+      },
+      {
+        title: "3. Program to prove String is immutable programmatically",
+        code: `
+public class ImmutableString {
+    public static void main(String[] args) {
+        String s = "Java";
+        String t = s;
+        s = s.concat(" Programming");
+        System.out.println("Original String: " + t);
+        System.out.println("Modified String: " + s);
+    }
+}`,
+        output: "Original String: Java<br>Modified String: Java Programming"
+      },
+      {
+        title: "4. Program to remove all occurrences of a given character from input String",
+        code: `
+public class RemoveChar {
+    public static void main(String[] args) {
+        String str = "programming";
+        char ch = 'm';
+        str = str.replace(String.valueOf(ch), "");
+        System.out.println("After removing '" + ch + "': " + str);
+    }
+}`,
+        output: "After removing 'm': prograing"
+      },
+      {
+        title: "5. Program to append the string using StringBuffer class",
+        code: `
+public class AppendStringBuffer {
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("Java");
+        sb.append(" Programming");
+        System.out.println("Appended String: " + sb);
+    }
+}`,
+        output: "Appended String: Java Programming"
+      },
+      {
+        title: "6. Program to insert the string using StringBuffer class",
+        code: `
+public class InsertStringBuffer {
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("I Java");
+        sb.insert(2, "love ");
+        System.out.println("After insert: " + sb);
+    }
+}`,
+        output: "After insert: I love Java"
+      },
+      {
+        title: "7. Program to Add Characters to a String (Using + Operator)",
+        code: `
+public class AddCharacters {
+    public static void main(String[] args) {
+        String str = "Java";
+        str = str + " Rocks";
+        System.out.println("Final String: " + str);
+    }
+}`,
+        output: "Final String: Java Rocks"
+      },
+      {
+        title: "8. Program to Add Characters to a String (Using concat)",
+        code: `
+public class AddCharactersConcat {
+    public static void main(String[] args) {
+        String str = "Hello";
+        str = str.concat(" World");
+        System.out.println("Final String: " + str);
+    }
+}`,
+        output: "Final String: Hello World"
+      },
+      {
+        title: "9. Program to Check Anagram",
+        code: `
+import java.util.Arrays;
+
+public class CheckAnagram {
+    public static void main(String[] args) {
+        String s1 = "listen";
+        String s2 = "silent";
+
+        char[] a = s1.toCharArray();
+        char[] b = s2.toCharArray();
+        Arrays.sort(a);
+        Arrays.sort(b);
+
+        boolean result = Arrays.equals(a, b);
+        System.out.println("Are Anagrams: " + result);
+    }
+}`,
+        output: "Are Anagrams: true"
+      },
+      {
+        title: "10. Program to check whether a string is a Palindrome",
+        code: `
+public class PalindromeCheck {
+    public static void main(String[] args) {
+        String str = "madam";
+        String rev = new StringBuilder(str).reverse().toString();
+        System.out.println("Is Palindrome: " + str.equals(rev));
+    }
+}`,
+        output: "Is Palindrome: true"
+      },
+      {
+        title: "11. Program to Convert Enum to String",
+        code: `
+enum Color { RED, GREEN, BLUE }
+
+public class EnumToString {
+    public static void main(String[] args) {
+        Color c = Color.RED;
+        String s = c.toString();
+        System.out.println("Enum to String: " + s);
+    }
+}`,
+        output: "Enum to String: RED"
+      },
+      {
+        title: "12. Program to Convert String to String Array",
+        code: `
+import java.util.Arrays;
+
+public class StringToArray {
+    public static void main(String[] args) {
+        String str = "Java is fun";
+        String[] words = str.split(" ");
+        System.out.println(Arrays.toString(words));
+    }
+}`,
+        output: "[Java, is, fun]"
+      },
+      {
+        title: "13. Program to count number of words in a String",
+        code: `
+public class CountWords {
+    public static void main(String[] args) {
+        String str = "Java is awesome";
+        String[] words = str.split(" ");
+        System.out.println("Number of words: " + words.length);
+    }
+}`,
+        output: "Number of words: 3"
+      },
+      {
+        title: "14. Program to count the total number of characters in a string",
+        code: `
+public class CountChars {
+    public static void main(String[] args) {
+        String str = "Java";
+        System.out.println("Total characters: " + str.length());
+    }
+}`,
+        output: "Total characters: 4"
+      },
+      {
+        title: "15. Program to count the total number of punctuation characters in a String",
+        code: `
+public class CountPunctuations {
+    public static void main(String[] args) {
+        String str = "Hello, world! How's Java?";
+        int count = 0;
+        for (char ch : str.toCharArray())
+            if ("!.,;:'?".indexOf(ch) != -1)
+                count++;
+        System.out.println("Punctuation count: " + count);
+    }
+}`,
+        output: "Punctuation count: 4"
+      },
+      {
+        title: "16. Program to count the total number of vowels and consonants in a string",
+        code: `
+public class VowelsConsonants {
+    public static void main(String[] args) {
+        String str = "HelloWorld";
+        int v = 0, c = 0;
+        str = str.toLowerCase();
+        for (char ch : str.toCharArray()) {
+            if ("aeiou".indexOf(ch) != -1)
+                v++;
+            else if (ch >= 'a' && ch <= 'z')
+                c++;
+        }
+        System.out.println("Vowels: " + v + ", Consonants: " + c);
+    }
+}`,
+        output: "Vowels: 3, Consonants: 7"
+      },
+      {
+        title: "17. Program to determine whether a given string is palindrome",
+        code: `
+public class PalindromeString {
+    public static void main(String[] args) {
+        String str = "level";
+        String rev = new StringBuilder(str).reverse().toString();
+        System.out.println("Is Palindrome: " + str.equalsIgnoreCase(rev));
+    }
+}`,
+        output: "Is Palindrome: true"
+      },
+      {
+        title: "18. Program to determine whether one string is a rotation of another",
+        code: `
+public class StringRotation {
+    public static void main(String[] args) {
+        String s1 = "abcd";
+        String s2 = "cdab";
+        boolean isRotation = (s1.length() == s2.length()) && ((s1 + s1).contains(s2));
+        System.out.println("Is rotation: " + isRotation);
+    }
+}`,
+        output: "Is rotation: true"
+      },
+      {
+        title: "19. Program to divide a string in 'N' equal parts",
+        code: `
+public class DivideString {
+    public static void main(String[] args) {
+        String str = "abcdefghijkl";
+        int n = 3;
+        int part = str.length() / n;
+
+        for (int i = 0; i < str.length(); i += part) {
+            System.out.println(str.substring(i, i + part));
+        }
+    }
+}`,
+        output: "abc<br>def<br>ghi<br>jkl"
+      },
+      {
+        title: "20. Program to find all subsets of a string",
+        code: `
+public class Subsets {
+    public static void main(String[] args) {
+        String str = "abc";
+        int len = str.length();
+        int total = (1 << len); // 2^len
+
+        System.out.println("Subsets:");
+        for (int i = 0; i < total; i++) {
+            String subset = "";
+            for (int j = 0; j < len; j++)
+                if ((i & (1 << j)) != 0)
+                    subset += str.charAt(j);
+            System.out.println(subset);
+        }
+    }
+}`,
+        output: "Subsets:<br><br>a<br>b<br>ab<br>c<br>ac<br>bc<br>abc"
+      },
+      {
+        title: "21. Program to find all the permutations of a string",
+        code: `
+public class Permutations {
+    static void permute(String str, String ans) {
+        if (str.length() == 0) {
+            System.out.println(ans);
+            return;
+        }
+        for (int i = 0; i < str.length(); i++) {
+            char ch = str.charAt(i);
+            String ros = str.substring(0, i) + str.substring(i + 1);
+            permute(ros, ans + ch);
+        }
+    }
+
+    public static void main(String[] args) {
+        permute("ABC", "");
+    }
+}`,
+        output: "ABC<br>ACB<br>BAC<br>BCA<br>CAB<br>CBA"
+      },
+      {
+        title: "22. Program to find maximum and minimum occurring character in a string",
+        code: `
+import java.util.*;
+
+public class MaxMinChar {
+    public static void main(String[] args) {
+        String str = "successes";
+        int[] freq = new int[256];
+        for (char ch : str.toCharArray())
+            freq[ch]++;
+
+        char minChar = ' ', maxChar = ' ';
+        int min = Integer.MAX_VALUE, max = Integer.MIN_VALUE;
+
+        for (int i=0; i<256; i++) {
+            if (freq[i] != 0) {
+                if (freq[i] < min) {
+                    min = freq[i];
+                    minChar = (char) i;
+                }
+                if (freq[i] > max) {
+                    max = freq[i];
+                    maxChar = (char) i;
+                }
+            }
+        }
+        System.out.println("Max occurring: " + maxChar);
+        System.out.println("Min occurring: " + minChar);
+    }
+}`,
+        output: "Max occurring: s<br>Min occurring: u"
+      },
+      {
+        title: "23. Program to find Reverse of the string",
+        code: `
+public class ReverseString {
+    public static void main(String[] args) {
+        String str = "Java";
+        String rev = new StringBuilder(str).reverse().toString();
+        System.out.println("Reversed: " + rev);
+    }
+}`,
+        output: "Reversed: avaJ"
+      },
+      {
+        title: "24. Program to find the duplicate characters in a string",
+        code: `
+public class DuplicateChars {
+    public static void main(String[] args) {
+        String str = "programming";
+        char[] chars = str.toCharArray();
+        System.out.print("Duplicate characters: ");
+        for (int i = 0; i < chars.length; i++) {
+            for (int j = i + 1; j < chars.length; j++) {
+                if (chars[i] == chars[j]) {
+                    System.out.print(chars[j] + " ");
+                    break;
+                }
+            }
+        }
+    }
+}`,
+        output: "Duplicate characters: r g m"
+      },
+      {
+        title: "25. Program to find the duplicate words in a string",
+        code: `
+import java.util.*;
+
+public class DuplicateWords {
+    public static void main(String[] args) {
+        String str = "Java is great and Java is powerful";
+        String[] words = str.toLowerCase().split(" ");
+        Set<String> set = new HashSet<>();
+        System.out.print("Duplicate words: ");
+        for (String word : words)
+            if (!set.add(word))
+                System.out.print(word + " ");
+    }
+}`,
+        output: "Duplicate words: java is"
+      },
+      {
+        title: "26. Program to find the frequency of characters",
+        code: `
+import java.util.*;
+
+public class FrequencyOfCharacters {
+    public static void main(String[] args) {
+        String str = "hello world";
+        int[] freq = new int[256];
+        for (char c : str.toCharArray()) {
+            freq[c]++;
+        }
+        System.out.println("Character frequencies:");
+        for (int i = 0; i < 256; i++) {
+            if (freq[i] > 0)
+                System.out.println((char) i + ": " + freq[i]);
+        }
+    }
+}`,
+        output: "Character frequencies:<br> : 1<br>d: 1<br>e: 1<br>h: 1<br>l: 3<br>o: 2<br>r: 1<br>w: 1"
+      },
+      {
+        title: "27. Program to find the largest and smallest word in a string",
+        code: `
+public class LargestSmallestWord {
+    public static void main(String[] args) {
+        String str = "Java is a powerful programming language";
+        String[] words = str.split(" ");
+        String small = words[0], large = words[0];
+        for (String word : words) {
+            if (word.length() < small.length()) small = word;
+            if (word.length() > large.length()) large = word;
+        }
+        System.out.println("Smallest word: " + small);
+        System.out.println("Largest word: " + large);
+    }
+}`,
+        output: "Smallest word: a<br>Largest word: programming"
+      },
+      {
+        title: "28. Program to find the longest repeating sequence in a string",
+        code: `
+public class LongestRepeatingSequence {
+    public static void main(String[] args) {
+        String str = "abcabcabcd";
+        String lrs = "";
+        int n = str.length();
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                String x = lcp(str.substring(i), str.substring(j));
+                if (x.length() > lrs.length()) lrs = x;
+            }
+        }
+        System.out.println("Longest Repeating Sequence: " + lrs);
+    }
+
+    static String lcp(String s, String t) {
+        int n = Math.min(s.length(), t.length());
+        for (int i = 0; i < n; i++) {
+            if (s.charAt(i) != t.charAt(i)) return s.substring(0, i);
+        }
+        return s.substring(0, n);
+    }
+}`,
+        output: "Longest Repeating Sequence: abcabc"
+      },
+      {
+        title: "29. Program to find the most repeated word in a text file",
+        code: `
+import java.io.*;
+import java.util.*;
+
+public class MostRepeatedWord {
+    public static void main(String[] args) throws Exception {
+        String text = "Java is fun and Java is powerful"; // Simulating file content
+        String[] words = text.toLowerCase().split(" ");
+        Map<String, Integer> map = new HashMap<>();
+        for (String w : words)
+            map.put(w, map.getOrDefault(w, 0) + 1);
+        String most = "";
+        int max = 0;
+        for (String key : map.keySet()) {
+            if (map.get(key) > max) {
+                max = map.get(key);
+                most = key;
+            }
+        }
+        System.out.println("Most repeated word: " + most);
+    }
+}`,
+        output: "Most repeated word: java"
+      },
+      {
+        title: "30. Program to find the number of the words in the given text file",
+        code: `
+public class WordCountFile {
+    public static void main(String[] args) {
+        String text = "Java is powerful and platform independent"; // Simulating file content
+        String[] words = text.split(" ");
+        System.out.println("Number of words: " + words.length);
+    }
+}`,
+        output: "Number of words: 6"
+      },
+      {
+        title: "31. Program to Get a Character From the Given String",
+        code: `
+public class GetCharacter {
+    public static void main(String[] args) {
+        String str = "Java";
+        char ch = str.charAt(2);
+        System.out.println("Character at index 2: " + ch);
+    }
+}`,
+        output: "Character at index 2: v"
+      },
+      {
+        title: "32. Program to Insert a string into another string",
+        code: `
+public class InsertString {
+    public static void main(String[] args) {
+        String original = "Hello World";
+        String insert = "Java ";
+        String result = original.substring(0, 6) + insert + original.substring(6);
+        System.out.println("Result: " + result);
+    }
+}`,
+        output: "Result: Hello Java World"
+      },
+      {
+        title: "33. Program to Iterate Over Characters in String",
+        code: `
+public class IterateCharacters {
+    public static void main(String[] args) {
+        String str = "Java";
+        System.out.println("Characters:");
+        for (int i = 0; i < str.length(); i++) {
+            System.out.println(str.charAt(i));
+        }
+    }
+}`,
+        output: "Characters:<br>J<br>a<br>v<br>a"
+      },
+      {
+        title: "34. Program to Print a New Line in String",
+        code: `
+public class NewLineExample {
+    public static void main(String[] args) {
+        String str = "Hello\\nWorld";
+        System.out.println(str);
+    }
+}`,
+        output: "Hello<br>World"
+      },
+      {
+        title: "35. Program to Print even length words",
+        code: `
+public class EvenLengthWords {
+    public static void main(String[] args) {
+        String str = "Java is an amazing language";
+        for (String word : str.split(" ")) {
+            if (word.length() % 2 == 0)
+                System.out.println(word);
+        }
+    }
+}`,
+        output: "Java<br>is<br>an"
+      },
+      {
+        title: "36. Program to print smallest and biggest possible palindrome word in a given string",
+        code: `
+public class SmallestBiggestPalindrome {
+    static boolean isPalindrome(String s) {
+        return s.equals(new StringBuilder(s).reverse().toString());
+    }
+    public static void main(String[] args) {
+        String str = "madam level noon civic radar";
+        String[] words = str.split(" ");
+        String small = null, big = null;
+        for (String word : words) {
+            if (isPalindrome(word)) {
+                if (small == null || word.length() < small.length()) small = word;
+                if (big == null || word.length() > big.length()) big = word;
+            }
+        }
+        System.out.println("Smallest palindrome: " + small);
+        System.out.println("Biggest palindrome: " + big);
+    }
+}`,
+        output: "Smallest palindrome: noon<br>Biggest palindrome: madam"
+      },
+      {
+        title: "37. Program to remove all the white spaces from a string",
+        code: `
+public class RemoveSpaces {
+    public static void main(String[] args) {
+        String str = "Java is fun";
+        String result = str.replaceAll("\\\\s", "");
+        System.out.println("String without spaces: " + result);
+    }
+}`,
+        output: "String without spaces: Javaisfun"
+      },
+      {
+        title: "38. Program to replace lower-case characters with upper-case and vice-versa",
+        code: `
+public class SwapCase {
+    public static void main(String[] args) {
+        String str = "JaVa";
+        StringBuilder sb = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            if (Character.isUpperCase(c))
+                sb.append(Character.toLowerCase(c));
+            else
+                sb.append(Character.toUpperCase(c));
+        }
+        System.out.println("Swapped case: " + sb);
+    }
+}`,
+        output: "Swapped case: jAvA"
+      },
+      {
+        title: "39. Program to replace the spaces of a string with a specific character",
+        code: `
+public class ReplaceSpaces {
+    public static void main(String[] args) {
+        String str = "Java is fun";
+        String result = str.replace(' ', '-');
+        System.out.println("Replaced: " + result);
+    }
+}`,
+        output: "Replaced: Java-is-fun"
+      },
+      {
+        title: "40. Program to separate the Individual Characters from a String",
+        code: `
+public class SeparateCharacters {
+    public static void main(String[] args) {
+        String str = "Java";
+        for (char c : str.toCharArray()) {
+            System.out.println(c);
+        }
+    }
+}`,
+        output: "J<br>a<br>v<br>a"
+      },
+      {
+        title: "41. Program to Splitting into a number of sub-strings",
+        code: `
+public class SplitSubstrings {
+    public static void main(String[] args) {
+        String str = "Java is fun";
+        String[] arr = str.split(" ");
+        for (String s : arr)
+            System.out.println(s);
+    }
+}`,
+        output: "Java<br>is<br>fun"
+      },
+      {
+        title: "42. Program to swap two string variables without using third or temp variable.",
+        code: `
+public class SwapStrings {
+    public static void main(String[] args) {
+        String a = "Hello", b = "World";
+        a = a + b;
+        b = a.substring(0, a.length() - b.length());
+        a = a.substring(b.length());
+        System.out.println("After swap: a=" + a + ", b=" + b);
+    }
+}`,
+        output: "After swap: a=World, b=Hello"
+      },
+      {
+        title: "43. Program to Swapping Pair of Characters",
+        code: `
+public class SwapPairCharacters {
+    public static void main(String[] args) {
+        String str = "abcd";
+        char[] arr = str.toCharArray();
+        for (int i = 0; i < arr.length - 1; i += 2) {
+            char temp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = temp;
+        }
+        System.out.println("Swapped string: " + new String(arr));
+    }
+}`,
+        output: "Swapped string: badc"
+      },
+      {
+        title: "44. Read two String user input and check if first contains second?",
+        code: `
+public class ContainsCheck {
+    public static void main(String[] args) {
+        String s1 = "Java programming";
+        String s2 = "gram";
+        System.out.println(s1.contains(s2));
+    }
+}`,
+        output: "true"
+      },
+      {
+        title: "45. Reverse String without reverse() function",
+        code: `
+public class ReverseString {
+    public static void main(String[] args) {
+        String str = "Java";
+        String rev = "";
+        for (int i = str.length() - 1; i >= 0; i--)
+            rev += str.charAt(i);
+        System.out.println("Reversed: " + rev);
+    }
+}`,
+        output: "Reversed: avaJ"
+      },
+      {
+        title: "46. Reverse String Word by Word",
+        code: `
+public class ReverseWords {
+    public static void main(String[] args) {
+        String str = "Java is fun";
+        String[] words = str.split(" ");
+        String rev = "";
+        for (int i = words.length - 1; i >= 0; i--)
+            rev += words[i] + " ";
+        System.out.println("Reversed words: " + rev.trim());
+    }
+}`,
+        output: "Reversed words: fun is Java"
+      },
+      {
+        title: "47. Write a program to check if two Strings are created with same characters?",
+        code: `
+import java.util.Arrays;
+
+public class SameCharacters {
+    public static void main(String[] args) {
+        String a = "listen", b = "silent";
+        char[] c1 = a.toCharArray();
+        char[] c2 = b.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        System.out.println(Arrays.equals(c1, c2));
+    }
+}`,
+        output: "true"
+      },
+      {
+        title: "48. Write a program to find out first non repeated character from input String?",
+        code: `
+import java.util.*;
+
+public class FirstNonRepeated {
+    public static void main(String[] args) {
+        String str = "aabbcdee";
+        for (char c : str.toCharArray()) {
+            if (str.indexOf(c) == str.lastIndexOf(c)) {
+                System.out.println("First non-repeated character: " + c);
+                break;
+            }
+        }
+    }
+}`,
+        output: "First non-repeated character: c"
+      },
+      {
+        title: "49. Create an object StringBuffer class to reverse the string.",
+        code: `
+public class StringBufferReverse {
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("Java");
+        System.out.println("Reversed: " + sb.reverse());
+    }
+}`,
+        output: "Reversed: avaJ"
+      },
+      {
+        title: "50. Create an object StringBuffer class to show functionality of insert, append, delete and replace functions.",
+        code: `
+public class StringBufferFunctions {
+    public static void main(String[] args) {
+        StringBuffer sb = new StringBuffer("Java");
+        sb.append(" Program");
+        sb.insert(5, "Language ");
+        sb.replace(0, 4, "JAVA");
+        sb.delete(5, 14);
+        System.out.println(sb);
+    }
+}`,
+        output: "JAVA Program"
+      }
+    ];
+
+    const section = document.getElementById("programs");
+    const menuList = document.getElementById("menuList");
+
+    programs.forEach((prog, i) => {
+      const div = document.createElement("div");
+      div.className = "program";
+      div.id = "prog" + (i + 1);
+      // Added HTML escaping for the code
+      const escapedCode = prog.code.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      div.innerHTML = `
+        <h3>${prog.title}</h3>
+        <pre>${escapedCode}</pre>
+        <div class="output"><strong>Output:</strong> ${prog.output.replace(/\\n/g, "<br>")}</div>`;
+      section.appendChild(div);
+
+      const li = document.createElement("li");
+      li.innerHTML = `<a href="#prog${i + 1}">${prog.title}</a>`;
+      menuList.appendChild(li);
+    });
+  </script>
+
+  <script>
+    const topBtn = document.getElementById("backToTopBtn");
+    
+    // Show button when user scrolls down 300px
+    window.onscroll = function() {
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        topBtn.style.display = "block";
+      } else {
+        topBtn.style.display = "none";
+      }
+    };
+    
+    // Smooth scroll to top when clicked
+    topBtn.onclick = function(e) {
+      e.preventDefault();
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    };
+  </script>
+
+</body>
+</html>
